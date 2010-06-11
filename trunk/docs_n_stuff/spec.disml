@@ -1,0 +1,73 @@
+DISML	\#
+document
+	title="Do It Simple Markup Language (DISML) 0.1"
+	subtitle="Draft 2010-03-20"
+	author1="Massei Francesco"
+	author1mail="fmassei@gmail.com"
+	url=""
+	section
+		title="Status of this document"
+		text="This is an intermediate working draft and is being actively \
+revised."
+	section
+		title="Abstract"
+		text="DISML is a human and machine friendly markup language, designed \
+to be easily read and written by both users and software. It can be broadly \
+used in many environments for many scopes, from configuration files to \
+internet messaging to object persistence to data auditing."
+	section
+		title="Table of contents"
+        # TODO add a type here
+		type="toc"
+	section
+		title="Introduction"
+		text="\"Do It Simple Markup Language\" (abbreviated DISML) is a data \
+serialization language designed to be human and machine friendly. \
+This specification is both an introduction to the DISML language and the \
+concepts supporting it; and also a complete reference of the information \
+needed to develop applications for processing DISML. \
+\
+The main design goal was to keep DISML as simple as possibile. Some of the \
+\"key\" features of other meta-languages are not even described in DISML, \
+leaving maximum freedom to applications."
+		section
+			title="Goals"
+			text="The design goals for DISML are: \
+- humans can easily read and write DISML documents \
+- machines can easily read and write DISML documents \
+Where \"easily\" means, in both cases, in a fast and natural way."
+		section
+			title="Prior art"
+			text=""
+		section
+			title="Relation to XML, JSON and YAML"
+			text=""
+		section
+			title="Terminology"
+			text="This specification uses key words in accordance with RFC2119 \
+to indicate requirement level. In particular, the following words are used to \
+describe the actions of a DISML processor: \
+- may This word, or the adjective \"optional\", mean that conformant \
+processors are permitted, but need not behave as described. \
+- should This word, or the adjective \"recommended\", mean that there could \
+be reasons for a processor to deviate from the behavior described, but that \
+such deviation could hurt interoperability and should therefore be advertised \
+with appropriate notice. \
+- must This word, or the term \"required\" or \"shall\", mean that the \
+behavior described is an absolute requirement of the specification."
+	section
+		title="Preview"
+	section
+		title="Processing DISML Information"
+		section
+			title="Processes"
+		section
+			title="Information models"
+		section
+			title="Completeness"
+	section
+		title="Syntax"
+		section
+			title="characters"
+		section
+			title="Space processing / Indentation"
