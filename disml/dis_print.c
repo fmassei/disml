@@ -18,18 +18,22 @@
 */
 #include "dis_print.h"
 
+/* default indentation character */
 #define INDCHAR '\t'
 
+/* print the indentation character a number of times */
 static void nest_print(FILE *out, int nest)
 {
     while(nest--) fprintf(out, "%c", INDCHAR);
 }
 
+/* print the header */
 static void print_first_line(FILE *out)
 {
     fprintf(out, "%s%c\n", DISML_MAGIC, INDCHAR);
 }
 
+/* print a "dis" key-value */
 static int diskv_print(FILE *out, t_diskv_s *kv, int nest)
 {
     if (kv==NULL) return -1;
@@ -39,6 +43,7 @@ static int diskv_print(FILE *out, t_diskv_s *kv, int nest)
     return 0;
 }
 
+/* print a "dis" object */
 static int disobj_print(FILE *out, t_disobj_s *obj, int nest)
 {
     t_mmp_listelem_s *p;

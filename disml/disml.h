@@ -19,6 +19,8 @@
 #ifndef H_DISML_H
 #define H_DISML_H
 
+/* main library entry points */
+
 #include <mmp_h_utils.h>
 
 #ifndef _WIN32
@@ -39,16 +41,25 @@
 
 MMP_CEXTERN_BEGIN
 
+/* parse a DISML file and return a disobj */
 DISML_API t_disobj_s *dis_parse_file(const char *fname);
+
+/* get last parsing error */
 DISML_API char *dis_get_parse_error(void);
 
+/* output a DISML file starting from a disobj */
 DISML_API ret_t dis_print_file(char *fname, t_disobj_s *obj);
 
+/* sort a disobj alphabetically */
 DISML_API void disobj_smart_sort(t_disobj_s *obj);
 
+/* destroy a disobj */
 DISML_API void disobj_destroy(t_disobj_s **obj);
 
+/* reset error tracing */
 DISML_API void dis_reset_error_tracing(void);
+
+/* print to stderr the error trace */
 DISML_API void dis_print_error_tracing(void);
 
 MMP_CEXTERN_END
