@@ -18,6 +18,7 @@
 */
 #include "dis_parse.h"
 
+/* set the last error in the static error tracing array */
 static void set_last_err(char *desc, int line_n)
 {
     char buf[0xff];
@@ -25,6 +26,7 @@ static void set_last_err(char *desc, int line_n)
     mmp_setError_ext(MMP_ERR_PARSE, buf);
 }
 
+/* get the indentation on the line pointed by str */
 static int get_str_indent(char *str, char indchar)
 {
     int i = 0;
@@ -35,6 +37,7 @@ static int get_str_indent(char *str, char indchar)
     return i;
 }
 
+/* strip the indentation */
 static char *strip_str_indent(char *str, char indchar)
 {
     if (str==NULL || *str=='\0')
@@ -44,6 +47,7 @@ static char *strip_str_indent(char *str, char indchar)
     return str;
 }
 
+/* remove the quotation marks from str, if they are present */
 static char *kv_valesc(char *str)
 {
     if (((str = mmp_str_trim(str))==NULL) || *str=='\0') return NULL;
@@ -54,6 +58,7 @@ static char *kv_valesc(char *str)
     return str;
 }
 
+/* parse a "dis" key-value */
 static t_diskv_s *diskv_parse(char *str)
 {
     t_diskv_s *pair;
@@ -70,6 +75,7 @@ static t_diskv_s *diskv_parse(char *str)
     return pair;
 }
 
+/* parse a "dis" object */
 static t_disobj_s *disobj_parse(t_disobj_s *par, char *str)
 {
     t_disobj_s *obj;
@@ -83,6 +89,7 @@ static t_disobj_s *disobj_parse(t_disobj_s *par, char *str)
     return obj;
 }
 
+/* add a "dis" object as a child */
 static t_disobj_s *add_to_disobj(t_disobj_s *obj, char *str)
 {
     t_disobj_s *ret;
@@ -110,6 +117,7 @@ static t_disobj_s *add_to_disobj(t_disobj_s *obj, char *str)
     return ret;
 }
 
+/* semi-standard fgets way of correctly taking a line */
 static ret_t get_and_validate_line(char *buf, size_t bufsize, FILE *in,
                                                                     int *line)
 {
@@ -130,6 +138,7 @@ static ret_t get_and_validate_line(char *buf, size_t bufsize, FILE *in,
 
 #define MAXBUFSIZE  150
 
+/* semi-generic fgets, with reallocs, trimming and stuff */
 static char *get_and_validate_wholeline(FILE *in, int *line, char ccont)
 {
     char *buf=NULL, *tmp;
@@ -158,6 +167,7 @@ static char *get_and_validate_wholeline(FILE *in, int *line, char ccont)
     return buf;
 }
 
+/* parse the DISML header */
 static ret_t parse_first_line(FILE *in, int *line, char *indchar,
                                                 char *brkchar, char *cmnchar)
 {
@@ -191,6 +201,7 @@ static ret_t parse_first_line(FILE *in, int *line, char *indchar,
     return MMP_ERR_OK;
 }
 
+/* parse a file */
 static t_disobj_s *parse_file(FILE *in)
 {
     char *buf=NULL;

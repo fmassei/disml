@@ -23,14 +23,15 @@
 #include "disml.h"
 #include "dis_types.h"
 
+/* library internal utility functions */
 void diskv_delete(t_diskv_s **kv);
 void disobj_delete(t_disobj_s **obj);
 void diselem_delete(t_diselem_s **elem);
-
 t_diselem_s *kv_to_elem(t_diskv_s *kv);
 t_diselem_s *obj_to_elem(t_disobj_s *obj);
 t_disobj_s *disobj_find_topmost(t_disobj_s *obj);
 
+/* part of external library prototypes (described in disml.h) */
 DISML_API void disobj_destroy(t_disobj_s **obj);
 DISML_API void disobj_smart_sort(t_disobj_s *obj);
 

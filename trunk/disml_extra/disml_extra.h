@@ -37,7 +37,9 @@
 
 MMP_CEXTERN_BEGIN
 
+/* convert from a "dis" object to an XML formatted file */
 DISML_EXTRA_API ret_t disobj_to_xml(const char *fname, t_disobj_s *obj);
+/* convert from a "dis" object to an JSON formatted file */
 DISML_EXTRA_API ret_t disobj_to_json(const char *fname, t_disobj_s *obj);
 
 MMP_CEXTERN_END

@@ -21,10 +21,12 @@
 
 #include <mmp_list.h>
 
+/* a "dis" key-value structure. */
 typedef struct diskv_s {
     char *key, *val;
 } t_diskv_s;
 
+/* a "dis" element. It can be a key-value or an object. */
 typedef struct diselem_s {
     enum disobtype_e { OT_KV, OT_OBJ } type;
     union diselem_u {
@@ -33,6 +35,7 @@ typedef struct diselem_s {
     } elem;
 } t_diselem_s;
 
+/* a "dis" object. */
 typedef struct disobj_s {
     char *name;
     t_mmp_list_s *elemlist;

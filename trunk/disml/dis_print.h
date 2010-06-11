@@ -23,6 +23,8 @@
 #include "dis_types.h"
 #include "dis_ops.h"
 
+/* part of external library prototypes (described in disml.h) */
+
 DISML_API ret_t dis_print_file(char *fname, t_disobj_s *obj);
 
 #endif /* H_DIS_PRINT_H */

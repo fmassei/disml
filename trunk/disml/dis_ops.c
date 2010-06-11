@@ -18,6 +18,7 @@
 */
 #include "dis_ops.h"
 
+/* delete a "dis" key-value pair" */
 void diskv_delete(t_diskv_s **kv)
 {
     if (kv==NULL || *kv==NULL) return;
@@ -27,6 +28,7 @@ void diskv_delete(t_diskv_s **kv)
     *kv = NULL;
 }
 
+/* delete a "dis" element */
 void diselem_delete(t_diselem_s **elem)
 {
     if (elem==NULL || *elem==NULL) return;
@@ -39,11 +41,13 @@ void diselem_delete(t_diselem_s **elem)
     *elem = NULL;
 }
 
-void diselem_delete_v(void **ptr)
+/* void version of the "dis" element delete for lambda-like deletions */
+static void diselem_delete_v(void **ptr)
 {
     diselem_delete((t_diselem_s **)ptr);
 }
 
+/* delete a "dis" object */
 void disobj_delete(t_disobj_s **obj)
 {
     if (obj==NULL || *obj==NULL) return;
@@ -55,6 +59,7 @@ void disobj_delete(t_disobj_s **obj)
     *obj = NULL;
 }
 
+/* create a "dis" element from a "dis" key value */
 t_diselem_s *kv_to_elem(t_diskv_s *kv)
 {
     t_diselem_s *elem;
@@ -68,6 +73,7 @@ t_diselem_s *kv_to_elem(t_diskv_s *kv)
     return elem;
 }
 
+/* create a "dis" element from a "dis" object */
 t_diselem_s *obj_to_elem(t_disobj_s *obj)
 {
     t_diselem_s *elem;
@@ -81,6 +87,7 @@ t_diselem_s *obj_to_elem(t_disobj_s *obj)
     return elem;
 }
 
+/* find the root object */
 t_disobj_s *disobj_find_topmost(t_disobj_s *obj)
 {
     if (obj->parent==NULL)
@@ -88,6 +95,7 @@ t_disobj_s *disobj_find_topmost(t_disobj_s *obj)
     return disobj_find_topmost(obj->parent);
 }
 
+/* "dis" element comparer function */
 static int diselem_compare_rl(t_diselem_s *e1, t_diselem_s *e2)
 {
     if (e1->type!=e2->type)
@@ -97,6 +105,7 @@ static int diselem_compare_rl(t_diselem_s *e1, t_diselem_s *e2)
     else
         return strcmp(e1->elem.obj->name, e2->elem.obj->name);
 }
+/* void version of the comparer function for lambda-like use */
 static int diselem_compare(void *e1, void *e2)
 {
     return diselem_compare_rl((t_diselem_s *)e1, (t_diselem_s *)e2);
