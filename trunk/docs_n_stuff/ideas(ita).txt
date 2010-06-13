@@ -1,0 +1,77 @@
+idee:
+Un linguaggio di markup ideale deve:
+1- essere abbastanza strutturato da permettere l'organizzazione logica della
+    maggior parte dei concetti e dei costrutti mentali umani (come ad esempio
+    oggetti, attributi, gerarchie, strutture ricorsive, etc.)
+2- esprimere queste strutture nel modo in cui sia più efficiente per una
+    macchina comprenderle, e al contempo nel linguaggio più naturale possibile
+    per un uomo.
+3- eliminare, per le applicazioni che leggono e scrivono in tale linguaggio,
+    sia i vincoli che impongono work-around o forzature, sia eccessivo "lavoro"
+    per effettuare operazioni basilari.
+
+come il DISML si pone in questo schema:
+1- esistono due principali strutture che in DISML sono intrinseche del
+    lingauggio: coppie chiave-valore e oggetti. Gli oggetti sono organizzati
+    secondo una struttura gerarchica, mentre le le coppie chiave-valore sono
+    relative ad un oggetto. In un gergo informatico, un file DISML è
+    assimilabile ad un albero che ha oggetti sui nodi e coppie chiave-valore
+    sulle foglie.
+2- un file DISML è così facile e con così poche regole che è immediato sia per
+    un uomo scriverle che per una macchina fare parsing. Sicuramente qualcuno
+    già utilizza strutture molto simili.
+3- il DISML è molto "libero": ci sono pochissime regole per avere un documento
+    validabile. Al contempo ci sono rigide regole per la strutturazione del
+    software dei parser: questo facilita per le applicazioni la possibilità
+    di scegliere tra vari livelli di astrazione, a seconda del grado di
+    "leggerezza" e di "funzionalità" che si vogliono ottenere.
+
+Struttura software
+Per mantenere il massimo delle funzionalità e il minimo delle risorse
+necessarie ad un corretto utilizzo del formato, i seguenti livelli software(1)
+sono definiti. 
+- livello 0: Funzionalità necessarie e indispensabili, definiscono il minimo
+indispensabile per avere un documento DISML.
+- livello 1: Funzionalità di estensione relative a set di caratteri e codifica.
+- livello 2: Funzionalità di conversione in altri formati e utilità.
+Ogni parser conforme ad i livelli 1 e 2, deve dare la possibilità per gli
+utilizzatori del parser stesso di includere (e/o effettuare linking, per i
+linguaggi compilati) di utilizzare solo funzioni di livello 0 e 1
+rispettivamente.
+(1) per "livello software" si intende qualsiasi oggetto o modulo software che
+implementa determinate funzionalità, e che può essere incluso nell'applicazione
+o libreria finale senza la necessità di includere livelli superiori.
+
+Codifica caratteri
+Non è specificata alcuna codifica carattere, con la unica seguente eccezione:
+- I caratteri definiti nello header, tra cui carattere di indentazione, 
+    carattere di escape e carattere di commento, devono essere contenuti nel
+    set ASCII a 7-bit.
+
+Header
+Ogni file DISML inizia con un header così formato:
+
+<magic string><indent character>[<escape character>[<comment character]]<fine riga>
+
+- magic string:
+    per la versione attuale è definito come "DISML"
+- indent character:
+    definisce il carattere di indentazione. Solitamente è definito come spazio
+    o tabulazione, ma può assumere qualsiasi valore.
+- escape character:
+    carattere di escape. Se presente, definisce quale carattere è preposto
+    allo escaping di fine riga o quotation mark (vedi dopo). In caso non fosse
+    presente il valore di default è lo slash "\".
+- comment character:
+    carattere di inizio commento. Se presente, definisce il carattere preposto
+    a definire l'inizio di un commento. In caso non fosse definito il valore
+    di default è '#'.
+- il "fine riga" può essere definito come CR, CR/LF o LF. Tale sequenza deve
+    essere la stessa per ogni fine riga presente nel file.
+
+Dei tipici header possono quindi essere (sequenza di fine riga esclusa):
+
+"DISML "
+"DISML   \#"
+"DISMLabc"
+
