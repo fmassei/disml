@@ -51,15 +51,58 @@ static int getHn(int n)
     return 4;
 }
 
+static size_t calc_nu_len(char *str)
+{
+    int i;
+    size_t ret;
+    for (i=0, ret=0; i<strlen(str); ++i) {
+        if (str[i]=='\\' && str[i+1]=='"') {
+            ++ret; ++i; /* escape str */
+        } else {
+            ++ret; /* nothing special */
+        }
+    }
+    return ret;
+}
+
+static char *escape_string(char *str)
+{
+    char *ret = NULL;
+    size_t new_len;
+    int i, j;
+    new_len = calc_nu_len(str)+1;
+    if ((ret = xmalloc(new_len))==NULL) {
+        mmp_setError(MMP_ERR_ENOMEM);
+        return NULL;
+    }
+    for (i=j=0; i<strlen(str); ++i) {
+        if (str[i]=='\\' && str[i+1]=='"') {
+            ret[j++] = '"';
+            ++i;
+        } else {
+            ret[j++] = str[i];
+        }
+    }
+    ret[j] = '\0';
+    return ret;
+}
+
 static void print_section_v(void *ptr, void *fptr);
 static void print_section(FILE *out, t_section_s *sec)
 {
+    char *esc;
     ss[ssn]++;
     memset(ss+ssn+1, 0, sizeof(int)*10-ssn-1);
     if (sec->title)
         fprintf(out, "<h%d>%s %s</h%d>\n", getHn(ssn), getssbuf(), sec->title, getHn(ssn));
-    if (sec->text)
-        fprintf(out, "<p>%s</p>\n", sec->text);
+    if (sec->text) {
+        if ((esc = escape_string(sec->text))==NULL) {
+            mmp_setError(MMP_ERR_GENERIC);
+            return;
+        }
+        fprintf(out, "<p>%s</p>\n", esc);
+        xfree(esc);
+    }
     ++ssn;
     mmp_list_lambda_data_ext(sec->section, print_section_v, out);
     --ssn;
