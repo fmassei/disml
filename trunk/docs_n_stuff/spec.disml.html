@@ -7,26 +7,164 @@
 <p>&lt;<a href="mailto:fmassei@gmail.com">fmassei@gmail.com</a>&gt;</p>
 <p><b>This version</b>: <a href=""></a></p>
 <h1>1. Status of this document</h1>
-<p>This is an intermediate working draft and is being actively revised.</p>
+    <p>This is an intermediate working draft and is being actively revised.</p>
 <h1>2. Abstract</h1>
-<p>DISML is a human and machine friendly markup language, designed to be easily read and written by both users and software. It can be broadly used in many environments for many scopes, from configuration files to internet messaging to object persistence to data auditing.</p>
+    <p>DISML is a human and machine friendly markup language, designed to be
+    easily read and written by both users and software. It can be broadly used 
+    in many environments for many scopes, from configuration files to internet 
+    messaging to object persistence to data auditing.</p>
 <h1>3. Table of contents</h1>
 <h1>4. Introduction</h1>
-<p>"Do It Simple Markup Language" (abbreviated DISML) is a data serialization language designed to be human and machine friendly. This specification is both an introduction to the DISML language and the concepts supporting it; and also a complete reference of the information needed to develop applications for processing DISML. The main design goal was to keep DISML as simple as possibile. Some of the "key" features of other meta-languages are not even described in DISML, leaving maximum freedom to applications.</p>
+    <p>"Do It Simple Markup Language" (abbreviated DISML) is a data
+    serialization language designed to be human and machine friendly.
+    This specification is both an introduction to the DISML language and the 
+    concepts supporting it; and also a complete reference of the information 
+    needed to develop applications for processing DISML.
+    The main design goal was to keep DISML as simple as possibile. 
+    Some of the "key" features of other meta-languages are not even described
+    in DISML, leaving maximum freedom to applications.</p>
 <h1>4. Goals</h1>
-<p>The design goals for DISML are: - humans can easily read and write DISML documents - machines can easily read and write DISML documents Where "easily" means, in both cases, in a fast and natural way.</p>
-<h1>5. Prior art</h1>
+<h2>4.1 In short terms..</h2>
+    <p>The design goals for DISML are:
+    <ul>
+        <li>humans can easily read and write DISML documents</li>
+        <li>machines can easily read and write DISML documents</li>
+    </ul>
+    Where "easily" means, in both cases, in a fast and natural way.</p>
+<h2>4.2 ... more precisely</h2>
+    <p>An ideal markup language should:
+    <ol>
+        <li>be structured enough to permit the logical organization of human
+        concept and mental structures (like <i>objects</i>, <i>attributes</i>,
+        <i>hierarchy</i> and so on)</li>
+        <li>be able to express this structures in the most efficient way for
+        a machine to parse them, while in the most natural way for a human to 
+        read and write them.</li>
+        <li>eliminate (or at least reduce) for an application which
+        uses it, both the language bonds that force hacks and work-arounds,
+        and extra work to accomplish basilar tasks.</li>
+    </ol>
+    How DISML solves:
+    <ol>
+        <li>There are two main intrinsic structures in DISML: <i>objects</i> and
+        <i>key-value pairs</i>. Objects are organized in a hierarchical way,
+        and contain key-value pairs.<br />
+        Informatically speaking, a DISML file is a <i>tree</i> which have
+        objects on nodes and key-value pairs on leafs.</li>
+        <li>A DISML file is so easy and with so few rules that reading and
+        writing a file is incredibly fast for both a human and a machine.
+        Probably there are a lot of non-standardized file structures that are
+        very similar to a DISML file.</li>
+        <li>A DISML file is very "free": there are very few rules to follow in 
+        order to have a valid document. On the other hand, there are some rigid
+        rules on parser implementations. The goal of this choice is to keep
+        the final applications free to choose the desider balance between
+        level of abstraction, functionality and computational weight.</li>
+    </ol>
+    </p>
+<h1>5. Relation to XML, JSON, YAML, INI</h1>
 <p></p>
-<h1>6. Relation to XML, JSON and YAML</h1>
-<p></p>
-<h1>7. Terminology</h1>
-<p>This specification uses key words in accordance with RFC2119 to indicate requirement level. In particular, the following words are used to describe the actions of a DISML processor: - may This word, or the adjective "optional", mean that conformant processors are permitted, but need not behave as described. - should This word, or the adjective "recommended", mean that there could be reasons for a processor to deviate from the behavior described, but that such deviation could hurt interoperability and should therefore be advertised with appropriate notice. - must This word, or the term "required" or "shall", mean that the behavior described is an absolute requirement of the specification.</p>
-<h0> Preview</h0>
-<h0> Processing DISML Information</h0>
-<h1>1. Processes</h1>
-<h1>2. Information models</h1>
-<h1>3. Completeness</h1>
-<h0> Syntax</h0>
-<h1>1. characters</h1>
-<h1>2. Space processing / Indentation</h1>
+<h1>6. Terminology</h1>
+    <p>This specification uses key words in accordance with RFC2119 to indicate
+    requirement level. In particular, the following words are used to describe
+    the actions of a DISML processor:
+    <ul>
+        <li><b>may</b><br /> This word, or the adjective "optional", mean that
+        conformant processors are permitted, but need not behave as
+        described.</li>
+        <li><b>should</b><br/> This word, or the adjective "recommended", mean
+        that there could be reasons for a processor to deviate from the
+        behavior described, but that such deviation could hurt interoperability
+        and should therefore be advertised with appropriate notice.</li>
+        <li><b>must</b><br /> This word, or the term "required" or "shall",
+        mean that the behavior described is an absolute requirement of the
+        specification.</li>
+    </ul></p>
+<h1>7. Preview</h1>
+<h1>8. Processing DISML Information</h1>
+<h2>8.1. Processes</h2>
+<h2>8.2. Information models</h2>
+<h2>8.3. Completeness</h2>
+<h1>9. Syntax</h1>
+<h2>9.1. Character encoding</h2>
+    <p>No character encoding is specified, with the following exceptions:
+    <ul>
+        <li>Character defined in the file header, (like indentation, escape and
+        comment character), must be contained in the 7-bit ASCII set.</li>
+        <li>If a BOM is present before the header definition, a level 0 parser
+        must skip it and procede without errors.</li>
+    </ul></p>
+<h2>9.2. Header</h2>
+    <p>A DISML file must begin with an header in the form:</p>
+    <code>&lt;magic string&gt;&lt;indent character&gt;[&lt;escape character&gt;[&lt;comment character&gt;]]&lt;end of line sequence&gt;</code>
+    <p><ul>
+        <li><i>magic string</i><br />
+        In the actual version it is defined as "DISML"</li>
+        <li><i>indent character</i><br />
+        It defines the indentation character. Tipically defined as space or tab,
+        it can assume any value.</li>
+        <li><i>escape character</i><br />
+        If present, it defines which character escapes quotation marks and
+        end-of-line (See: <a href="#9.7">9.7.Escaping</a>).
+        The default character is '/'.</li>
+        <li><i>comment character</i><br />
+        If present, it defines which character defines the start of a comment
+        line. The default character is '#'.</li>
+        <li><i>end-of-line</i><br />
+        The end-of-line sequence can be one of CR, CR/LF or LF. This sequence
+        must be the same for any other line in the document.</li>
+    </ul></p>
+    <p>The strings defined below are all valid headers:</p>
+    <code>
+        "DISML "
+        "DISML  \#"
+        "DISMLabc"
+    </code>
+    <p>The first one defines a space as the indentation character, leaving the
+    default value for the escape and comment ones. The second one explicitly
+    set the default values for every character. The third one set 'a' as the 
+    indentation character, 'b' as the escape one and 'c' as the comment one.</p>
+<h2>9.3. Elements</h2>
+    <p>A DISML element can be an <i>object</i> or a key-value pair, named
+    <i>KV-pair</i>.</p>
+    <p>Each element is defined in a single line, and is preceded by its
+    <i>indentation</i>.</p>
+    <code>&lt;identation&gt;&lt;object | kv-pair&gt;</code>
+<h2>9.4. Indentation</h2>
+    <p>The indentation is a number of indentation characters equal to the 
+    hierarchical level of the element that follows. If two elements have the
+    same indentation are considered brothers, father and son otherwise</p>
+    <code>father
+    son
+    son
+        grandson</code>
+    <p>Having more than one indentation level between a father and its son must
+    be considered an error.</p>
+    <code>object
+        error="too much indentation!"
+    son="correct indentation"</code>
+<h2>9.5. Objects</h2>
+    <p>An object is defined as:</p>
+    <code>&lt;object name&gt;</code>
+<h2>9.6. KV-Pairs</h2>
+    <p>A key-value pair is defined as:</p>
+    <code>&lt;key&gt;=["]&lt;value&gt;["]</code>
+    <p>The quotation marks may or not be present.</p>
+<h2><a name="9.7">9.7. Escaping</a></h2>
+    <p>A DISML escape sequence must only occurr in a kv-pair value definition.
+    There are only two escapable characters:
+    <ul>
+        <li>The quotation mark, in case the value definition is surrounded by
+        quotation marks</li>
+        <li>The end-of-line sequence.</li>
+    </ul></p>
+    <p>A conformant parser must be able to read lines up to 256 characters. 
+    Any line exceding this limit should be cut in more lines escaping the
+    end-of-line characters.</p> 
+    <code>object
+    elem1=we like to say: "Yeah!"
+    elem2="we like to say: \"Yeah!\""
+    elem3="we like to write long lines too, breaking \
+them up to increase readability and to be sure that our new DISML parser \
+would not throw strange errors!"</code>
 </body></html>
