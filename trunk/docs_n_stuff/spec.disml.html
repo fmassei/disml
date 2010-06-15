@@ -6,15 +6,39 @@
 <p><b>Massei Francesco</b></p>
 <p>&lt;<a href="mailto:fmassei@gmail.com">fmassei@gmail.com</a>&gt;</p>
 <p><b>This version</b>: <a href=""></a></p>
-<h1>1. Status of this document</h1>
+<h1><a name="1">1. Status of this document</a></h1>
     <p>This is an intermediate working draft and is being actively revised.</p>
-<h1>2. Abstract</h1>
+<h1><a name="2">2. Abstract</a></h1>
     <p>DISML is a human and machine friendly markup language, designed to be
     easily read and written by both users and software. It can be broadly used 
     in many environments for many scopes, from configuration files to internet 
     messaging to object persistence to data auditing.</p>
-<h1>3. Table of contents</h1>
-<h1>4. Introduction</h1>
+<h1><a name="3">3. Table of contents</a></h1>
+    <ul>
+        <li><a href="#1">1. Status of this document</a></li>
+        <li><a href="#2">2. Abstract</a></li>
+        <li><a href="#4">4. Introduction</a></li>
+        <li><a href="#5">5. Goals</a><ul>
+            <li><a href="#5.1">5.1. In short terms</a></li>
+            <li><a href="#5.2">5.2. More precisely</a></li></ul></li>
+        <li><a href="#6">6. Relation to XML, JSON, YAML, INI</a></li>
+        <li><a href="#7">7. Terminology</a></li>
+        <li><a href="#8">8. Preview</a></li>
+        <li><a href="#9">9. Processing DISML Information</a><ul>
+            <li><a href="#9.1">9.1. Conformant parsers</a></li>
+            <li><a href="#9.2">9.2. Functions by level</a></li>
+            <li><a href="#9.3">9.3. Compability</a></li></ul></li>
+        <li><a href="#10">10. Syntax</a><ul>
+            <li><a href="#10.1">10.1. Character encoding</a></li>
+            <li><a href="#10.2">10.2. Header</a></li>
+            <li><a href="#10.3">10.3. Elements</a></li>
+            <li><a href="#10.4">10.4. Indentation</a></li>
+            <li><a href="#10.5">10.5. Objects</a></li>
+            <li><a href="#10.6">10.6. KV-Pairs</a></li>
+            <li><a href="#10.7">10.7. Escaping</a></li></ul></li>
+        <li><a href="#index">Index</a></li>
+    </ul>
+<h1><a name="4">4. Introduction</a></h1>
     <p>"Do It Simple Markup Language" (abbreviated DISML) is a data
     serialization language designed to be human and machine friendly.
     This specification is both an introduction to the DISML language and the 
@@ -23,15 +47,15 @@
     The main design goal was to keep DISML as simple as possibile. 
     Some of the "key" features of other meta-languages are not even described
     in DISML, leaving maximum freedom to applications.</p>
-<h1>4. Goals</h1>
-<h2>4.1 In short terms..</h2>
+<h1><a name="5">5. Goals</a></h1>
+<h2><a name="5.1">5.1. In short terms..</a></h2>
     <p>The design goals for DISML are:
     <ul>
         <li>humans can easily read and write DISML documents</li>
         <li>machines can easily read and write DISML documents</li>
     </ul>
     Where "easily" means, in both cases, in a fast and natural way.</p>
-<h2>4.2 ... more precisely</h2>
+<h2><a name="5.2">5.2. ... more precisely</a></h2>
     <p>An ideal markup language should:
     <ol>
         <li>be structured enough to permit the logical organization of human
@@ -62,9 +86,9 @@
         level of abstraction, functionality and computational weight.</li>
     </ol>
     </p>
-<h1>5. Relation to XML, JSON, YAML, INI</h1>
+<h1><a name="6">6. Relation to XML, JSON, YAML, INI</a></h1>
 <p></p>
-<h1>6. Terminology</h1>
+<h1><a name="7">7. Terminology</a></h1>
     <p>This specification uses key words in accordance with RFC2119 to indicate
     requirement level. In particular, the following words are used to describe
     the actions of a DISML processor:
@@ -80,13 +104,70 @@
         mean that the behavior described is an absolute requirement of the
         specification.</li>
     </ul></p>
-<h1>7. Preview</h1>
-<h1>8. Processing DISML Information</h1>
-<h2>8.1. Processes</h2>
-<h2>8.2. Information models</h2>
-<h2>8.3. Completeness</h2>
-<h1>9. Syntax</h1>
-<h2>9.1. Character encoding</h2>
+<h1><a name="8">8. Preview</a></h1>
+    <p>Some valid DISML document examples:</p>
+    <code>DISML 
+glossary
+    title="example glossary"
+    GlossDiv
+        title="S"
+        GlossList
+            GlossEntry
+                ID="SGML"
+                SortAs="SGML"
+                GlossTerm="Standard Generalized Markup Language"
+                Acronym="SGML"
+                Abbrev="ISO 8879:1986"
+                GlossDef
+                    para= "A meta-markup language, used to create markup languages such as DocBook."
+                    GlossSeeAlso="GML, XML"
+                GlossSee="markup"</code>
+    <i>Converted from a Json example @ http://www.json.org/example.html</i>
+    <code>DISML 
+invoice
+    code = 34843
+    date = 2001-01-23
+    bill-to
+        given = Chris
+        family = Dumars
+        address
+            lines = 458 Walkman Dr. Suite #292
+            city = Royal Oak
+            state = MI
+            postal = 48046
+    product
+        sku = BL394D
+        quantity = 4
+        description = Basketball
+        price = 450.00
+    product
+        sku = BL4438H
+        quantity = 1
+        description = Super Hoop
+        price = 2392.00
+    tax = 251.42
+    total = 4443.52
+    comments = "Late afternoon is best. Backup contact is Nancy. Billsmer @ 338-4338"</code>
+    <i>Converted from a YAML example @ http://www.yaml.org/start.html</i>
+<h1><a name="9">9. Processing DISML Information</a></h1>
+<h2><a name="9.1">9.1. Conformant parsers</a></h2>
+    <p>To mantain the correct balance between needed functionalities and
+    resource usage in a correct DISML file handling, the following
+    <i>software levels</i> are defined:<ol>
+        <li><b>Level 0</b>: the minimum set of functions to correctly read and
+        write a DISML document.</li>
+        <li><b>Level 1</b>: extension functions that manage character encoding,
+        file encoding, data-type conversions and so on.</li>
+        <li><b>Level 2</b>: extension functions to validate documents,
+        convert to other formats and general utilities.</li>
+    </ol>
+    <p>Each conformant level-1 or level-2 parser must give the possibility to
+    its users to include (and/or link) only level-0 and level-1 functions
+    respectively.</p>
+<h2><a name="9.2">9.2. Functions by level</a></h2>
+<h2><a name="9.3">9.3. Compatibility</a></h2>
+<h1><a name="9">10. Syntax</a></h1>
+<h2><a name="10.1">10.1. Character encoding</a></h2>
     <p>No character encoding is specified, with the following exceptions:
     <ul>
         <li>Character defined in the file header, (like indentation, escape and
@@ -94,7 +175,7 @@
         <li>If a BOM is present before the header definition, a level 0 parser
         must skip it and procede without errors.</li>
     </ul></p>
-<h2>9.2. Header</h2>
+<h2><a name="10.2">10.2. Header</a></h2>
     <p>A DISML file must begin with an header in the form:</p>
     <code>&lt;magic string&gt;&lt;indent character&gt;[&lt;escape character&gt;[&lt;comment character&gt;]]&lt;end of line sequence&gt;</code>
     <p><ul>
@@ -105,7 +186,7 @@
         it can assume any value.</li>
         <li><i>escape character</i><br />
         If present, it defines which character escapes quotation marks and
-        end-of-line (See: <a href="#9.7">9.7.Escaping</a>).
+        end-of-line (See: <a href="#10.7">10.7.Escaping</a>).
         The default character is '/'.</li>
         <li><i>comment character</i><br />
         If present, it defines which character defines the start of a comment
@@ -124,13 +205,13 @@
     default value for the escape and comment ones. The second one explicitly
     set the default values for every character. The third one set 'a' as the 
     indentation character, 'b' as the escape one and 'c' as the comment one.</p>
-<h2>9.3. Elements</h2>
+<h2><a name="10.3">10.3. Elements</a></h2>
     <p>A DISML element can be an <i>object</i> or a key-value pair, named
     <i>KV-pair</i>.</p>
     <p>Each element is defined in a single line, and is preceded by its
     <i>indentation</i>.</p>
     <code>&lt;identation&gt;&lt;object | kv-pair&gt;</code>
-<h2>9.4. Indentation</h2>
+<h2><a name="10.4">10.4. Indentation</a></h2>
     <p>The indentation is a number of indentation characters equal to the 
     hierarchical level of the element that follows. If two elements have the
     same indentation are considered brothers, father and son otherwise</p>
@@ -143,14 +224,14 @@
     <code>object
         error="too much indentation!"
     son="correct indentation"</code>
-<h2>9.5. Objects</h2>
+<h2><a name="10.5">10.5. Objects</a></h2>
     <p>An object is defined as:</p>
     <code>&lt;object name&gt;</code>
-<h2>9.6. KV-Pairs</h2>
+<h2><a name="10.6">10.6. KV-Pairs</a></h2>
     <p>A key-value pair is defined as:</p>
     <code>&lt;key&gt;=["]&lt;value&gt;["]</code>
     <p>The quotation marks may or not be present.</p>
-<h2><a name="9.7">9.7. Escaping</a></h2>
+<h2><a name="10.7">10.7. Escaping</a></h2>
     <p>A DISML escape sequence must only occurr in a kv-pair value definition.
     There are only two escapable characters:
     <ul>
@@ -167,4 +248,5 @@
     elem3="we like to write long lines too, breaking \
 them up to increase readability and to be sure that our new DISML parser \
 would not throw strange errors!"</code>
+<h1><a name="Index">Index</a></h1>
 </body></html>
