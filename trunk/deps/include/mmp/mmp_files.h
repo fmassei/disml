@@ -16,31 +16,37 @@
     You should have received a copy of the GNU General Public License
     along with MMP.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef H_MMP_STRING_H
-#define H_MMP_STRING_H
+#ifndef H_MMP_FILES_H
+#define H_MMP_FILES_H
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "mmp_error.h"
+#include <time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#ifndef _WIN32
+#   include <unistd.h>
+#else
+#   include <windows.h>
+#endif
+
+#include "mmp_list.h"
+#include "mmp_trace.h"
 #include "mmp_memory.h"
+#include "mmp_string.h"
 
-/* unix strdup() */
-char *xstrdup(const char *s);
-/* unix index() */
-char *xindex(char *s, char c);
-/* unix strncasecmp() */
-int xstrncasecmp(const char *s1, const char *s2, size_t n);
+#ifndef _WIN32
+    typedef struct stat t_mmp_stat_s;
+#else
+    typedef struct _stat t_mmp_stat_s;
+#endif
 
-/* trim functions */
-int mmp_str_is_trimmable(char c);   /* is a character "trimmable"? */
-char *mmp_str_ltrim(char *str);     /* left trim */
-char *mmp_str_rtrim(char *str);     /* right trim */
-char *mmp_str_trim(char *str);      /* left and right trim */
+int mmp_stat(const char *path, t_mmp_stat_s *stat_ptr);
 
 #ifdef UNIT_TESTING
-#include "mmp_tap.h"
-ret_t mmp_string_unittest(t_mmp_tap_cycle_s *cycle);
+#   include "mmp_tap.h"
+    ret_t mmp_files_unittest(t_mmp_tap_cycle_s *cycle);
 #endif /* UNIT_TESTING */
 
-#endif /* H_MMP_STRING_H */
+#endif /* H_MMP_FILES_H */
