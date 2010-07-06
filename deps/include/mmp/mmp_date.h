@@ -16,31 +16,26 @@
     You should have received a copy of the GNU General Public License
     along with MMP.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef H_MMP_STRING_H
-#define H_MMP_STRING_H
+#ifndef H_MMP_DATE_H
+#define H_MMP_DATE_H
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include "mmp_error.h"
-#include "mmp_memory.h"
+#include <time.h>
 
-/* unix strdup() */
-char *xstrdup(const char *s);
-/* unix index() */
-char *xindex(char *s, char c);
-/* unix strncasecmp() */
-int xstrncasecmp(const char *s1, const char *s2, size_t n);
+/* strptime wrapper */
+char *xstrptime(const char *buf, const char *fmt, struct tm *tm);
 
-/* trim functions */
-int mmp_str_is_trimmable(char c);   /* is a character "trimmable"? */
-char *mmp_str_ltrim(char *str);     /* left trim */
-char *mmp_str_rtrim(char *str);     /* right trim */
-char *mmp_str_trim(char *str);      /* left and right trim */
+/* format the current time in some useful formats */
+void mmp_time_1123_format(time_t t, char *datestr, size_t strsize);
+void mmp_time_1036_format(time_t t, char *datestr, size_t strsize);
+void mmp_time_asctime_format(time_t t, char *datestr, size_t strsize);
+/* parse the string passed into a date */
+int mmp_parse_date(char *date, time_t *t);
 
 #ifdef UNIT_TESTING
 #include "mmp_tap.h"
-ret_t mmp_string_unittest(t_mmp_tap_cycle_s *cycle);
+ret_t mmp_date_unittest(t_mmp_tap_cycle_s *cycle);
 #endif /* UNIT_TESTING */
 
-#endif /* H_MMP_STRING_H */
+#endif /* H_DATE_H */
