@@ -19,7 +19,7 @@
 #ifndef H_DIS_TYPES_H
 #define H_DIS_TYPES_H
 
-#include <mmp_list.h>
+#include <mmp/mmp_list.h>
 
 /* a "dis" key-value structure. */
 typedef struct diskv_s {

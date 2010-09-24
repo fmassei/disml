@@ -19,7 +19,7 @@
 #ifndef H_DISML_EXTRA_H
 #define H_DISML_EXTRA_H
 
-#include <mmp_h_utils.h>
+#include <mmp/mmp_h_utils.h>
 
 #ifndef _WIN32
 #   define DISML_EXTRA_API    extern
@@ -31,7 +31,7 @@
 #   endif
 #endif
 
-#include <disml.h>
+#include <disml/disml.h>
 #include "dis_to_xml.h"
 #include "dis_to_json.h"
 
