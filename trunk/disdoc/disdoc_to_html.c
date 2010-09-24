@@ -53,7 +53,7 @@ static int getHn(int n)
 
 static size_t calc_nu_len(char *str)
 {
-    int i;
+    unsigned int i;
     size_t ret;
     for (i=0, ret=0; i<strlen(str); ++i) {
         if (str[i]=='\\' && str[i+1]=='"') {
@@ -69,7 +69,7 @@ static char *escape_string(char *str)
 {
     char *ret = NULL;
     size_t new_len;
-    int i, j;
+    unsigned int i, j;
     new_len = calc_nu_len(str)+1;
     if ((ret = xmalloc(new_len))==NULL) {
         mmp_setError(MMP_ERR_ENOMEM);
