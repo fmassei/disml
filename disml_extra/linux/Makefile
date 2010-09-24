@@ -3,13 +3,13 @@ RM  =   rm -f
 LN	=	ln -s
 STRIP	= strip
 GCCFLAG	= -Wall -ansi -pedantic -fPIC
-LDFLAG	= -shared -Wl,-soname,$(FINAME) -lc -L../../deps/lib/linux -lmmp_base -L../../disml/linux -ldisml
-INCLUDE	= -I../../deps/include/mmp/ -I../../disml
+LDFLAG	= -shared -Wl,-soname,$(FINAME) -lc -lmmp_base -ldisml
+INCLUDE	= -I.
 SRCDIR	= ..
 OBJDIR	= .
 BINDIR	= .
-FINAME	= libdisml_extra.so.1
-LNNAME	= libdisml_extra.so
+FINAME	= libdisml_extra.so.0.1
+LNNAME	= libdisml_extra.so.0
 
 OBJS   = dis_to_xml.o dis_to_json.o
 OBJWD  = echo $(OBJDIR)/$(OBJS) | sed 's/\ /\ \.\//g'
@@ -33,3 +33,9 @@ all: main
 
 debug: GCCFLAG += -g
 debug: main
+
+install:
+	$(INSTALL) -m 755 -d /usr/include/disml
+	$(INSTALL) -m 644 $(SRCDIR)/*.h /usr/include/disml
+	$(INSTALL) -m 644 $(FINAME) /usr/lib/
+	$(LN) $(FINAME) $(LNNAME)

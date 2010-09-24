@@ -96,7 +96,7 @@ t_disobj_s *disobj_find_topmost(t_disobj_s *obj)
 }
 
 /* "dis" element comparer function */
-static int diselem_compare_rl(t_diselem_s *e1, t_diselem_s *e2)
+static int diselem_compare_rl(const t_diselem_s *e1, const t_diselem_s *e2)
 {
     if (e1->type!=e2->type)
         return (e1->type==OT_KV)?-1:1;
@@ -106,7 +106,7 @@ static int diselem_compare_rl(t_diselem_s *e1, t_diselem_s *e2)
         return strcmp(e1->elem.obj->name, e2->elem.obj->name);
 }
 /* void version of the comparer function for lambda-like use */
-static int diselem_compare(void *e1, void *e2)
+static int diselem_compare(const void *e1,const void *e2)
 {
     return diselem_compare_rl((t_diselem_s *)e1, (t_diselem_s *)e2);
 }

@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../base/; ../../disml"
+				AdditionalIncludeDirectories="../../../../libmmp/trunk; ../../disml"
 				PreprocessorDefinitions="DISML_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="false"
 				ExceptionHandling="0"
@@ -69,7 +69,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="disml.lib mmp_base.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../disml/vc98/$(ConfigurationName); ../../base/vc98/$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../disml/vc98/$(ConfigurationName); ../../../../libmmp/trunk/vc98/$(ConfigurationName)"
 				GenerateManifest="false"
 				EnableUAC="false"
 				IgnoreEmbeddedIDL="true"
@@ -132,7 +132,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../base/; ../../disml"
+				AdditionalIncludeDirectories="../../../../libmmp/trunk; ../../disml"
 				PreprocessorDefinitions="DISML_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="false"
 				ExceptionHandling="0"
@@ -158,9 +158,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="disml.lib"
+				AdditionalDependencies="mmp_base.lib disml.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../disml/vc98/$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../disml/vc98/$(ConfigurationName); ../../../../libmmp/trunk/vc98/$(ConfigurationName)"
 				GenerateManifest="false"
 				EnableUAC="false"
 				IgnoreEmbeddedIDL="true"
@@ -205,10 +205,6 @@
 			>
 			<File
 				RelativePath="..\disdoc_ops.c"
-				>
-			</File>
-			<File
-				RelativePath="..\disdoc_test.c"
 				>
 			</File>
 			<File
