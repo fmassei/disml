@@ -1,7 +1,8 @@
 GCC =   gcc
 RM  =   rm -f
-LN	=	ln -s
+LN	=	ln -sf
 STRIP	= strip
+INSTALL = install
 GCCFLAG	= -Wall -ansi -pedantic -fPIC
 LDFLAG	= -shared -Wl,-soname,$(FINAME) -lc -lmmp_base
 INCLUDE	= -I.
@@ -10,6 +11,7 @@ OBJDIR	= .
 BINDIR	= .
 FINAME	= libdisml.so.0.1
 LNNAME	= libdisml.so.0
+DVNAME  = libdisml.so
 
 OBJS   = dis_ops.o dis_parse.o dis_print.o
 OBJWD  = echo $(OBJDIR)/$(OBJS) | sed 's/\ /\ \.\//g'
@@ -38,4 +40,5 @@ install:
 	$(INSTALL) -m 755 -d /usr/include/disml
 	$(INSTALL) -m 644 $(SRCDIR)/*.h /usr/include/disml
 	$(INSTALL) -m 644 $(FINAME) /usr/lib/
-	$(LN) $(FINAME) $(LNNAME)
+	$(LN) /usr/lib/$(FINAME) /usr/lib/$(LNNAME)
+	$(LN) /usr/lib/$(LNNAME) /usr/lib/$(DVNAME)

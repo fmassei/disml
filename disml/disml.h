@@ -21,7 +21,7 @@
 
 /* main library entry points */
 
-#include <mmp_h_utils.h>
+#include <mmp/mmp_h_utils.h>
 
 #ifndef _WIN32
 #   define DISML_API    extern

@@ -19,7 +19,7 @@
 #ifndef H_DIS_OPS_H
 #define H_DIS_OPS_H
 
-#include <mmp_string.h>
+#include <mmp/mmp_string.h>
 #include "disml.h"
 #include "dis_types.h"
 
