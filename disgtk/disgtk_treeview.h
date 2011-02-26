@@ -22,10 +22,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <disml.h>
-#include <mmp_list.h>
-#include <mmp_memory.h>
-#include <mmp_trace.h>
+#include <disml/disml.h>
+#include <mmp/mmp_list.h>
+#include <mmp/mmp_memory.h>
+#include <mmp/mmp_trace.h>
 
 int disgtk_gtktreeview(t_disobj_s *proj, int argc, char *argv[]);
 

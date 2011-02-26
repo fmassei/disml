@@ -16,8 +16,8 @@
     You should have received a copy of the GNU General Public License
     along with DISML parser.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <disml.h>
-#include <mmp_trace.h>
+#include <disml/disml.h>
+#include <mmp/mmp_trace.h>
 #include "disgtk_treeview.h"
 
 int main(int argc, char *argv[])
